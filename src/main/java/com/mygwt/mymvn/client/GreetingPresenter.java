@@ -13,6 +13,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.HasDirectionalText;
 import com.google.gwt.user.client.ui.HasValue;
 import com.mygwt.mymvn.client.GreetingPresenter.Display;
 import com.mygwt.mymvn.client.rpc.SendGreetingAction;
@@ -31,6 +32,8 @@ public class GreetingPresenter extends WidgetPresenter<Display>
  public interface Display extends WidgetDisplay 
  {
   public HasValue getName();
+  
+  public HasDirectionalText getAnswer();
 
   public HasClickHandlers getSend();
  }
@@ -62,7 +65,6 @@ public class GreetingPresenter extends WidgetPresenter<Display>
  /**
   * Try to send the greeting message
   */
-@UiHandler("eventButton")
  private void doSend() 
  {
   dispatcher.execute(new SendGreetingAction((String)display.getName().getValue()), 
@@ -70,12 +72,12 @@ public class GreetingPresenter extends WidgetPresenter<Display>
   {
 
    public void onFailure(final Throwable cause) {
-   
-    Window.alert(SERVER_ERROR);
+   	   Window.alert(SERVER_ERROR);
    }
 
    public void onSuccess(final SendGreetingResult result) {
 	   Window.alert("my msg");
+	   display.getAnswer().setText(result.getResultMessage());
    }
    
   });

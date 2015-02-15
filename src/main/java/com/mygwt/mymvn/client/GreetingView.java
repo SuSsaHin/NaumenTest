@@ -6,13 +6,16 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HasDirectionalText;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
 public class GreetingView extends Composite implements GreetingPresenter.Display {
  private final TextBox name;
+ private final Label answer;
  private final Button sendButton;
 
  public GreetingView() {
@@ -26,11 +29,18 @@ public class GreetingView extends Composite implements GreetingPresenter.Display
   sendButton = new Button("Go0");
   panel.add(sendButton);
   
+  answer = new Label();
+  panel.add(answer);
+  
+  /*RootPanel.get("myContainer").add(name);
+  RootPanel.get("myContainer").add(sendButton);
+  RootPanel.get("myContainer").add(answer);*/
   // Add the nameField and sendButton to the RootPanel
   // Use RootPanel.get() to get the entire body element
   RootPanel.get("nameFieldContainer").add(name);
   RootPanel.get("sendButtonContainer").add(sendButton);
-  
+  RootPanel.get("answerLabelContainer").add(answer);
+
   reset();
  }
 
@@ -38,6 +48,10 @@ public class GreetingView extends Composite implements GreetingPresenter.Display
   return name;
  }
 
+ public HasDirectionalText getAnswer() {
+	  return answer;
+	 }
+ 
  public HasClickHandlers getSend() {
   return sendButton;
  }
