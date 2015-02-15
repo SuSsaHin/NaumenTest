@@ -11,20 +11,27 @@ import com.google.gwt.user.client.ui.RootPanel;
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-public class MyGwt implements EntryPoint {
-  /**
-   * This is the entry point method.
-   */
-  public void onModuleLoad() {
-	  final DefaultEventBus eventBus = new DefaultEventBus();
-		final GreetingView greetingView = new GreetingView();
-		final DispatchAsync dispatcher = new StandardDispatchAsync(new DefaultExceptionHandler());
-		
-		final GreetingPresenter greetingPresenter = new GreetingPresenter(greetingView, eventBus, dispatcher);
-		final AppPresenter appPresenter = new AppPresenter(greetingPresenter);
-		
+public class MyGwt implements EntryPoint
+{
+	/**
+	 * This is the entry point method.
+	 */
+	public void onModuleLoad()
+	{
+		final DefaultEventBus eventBus = new DefaultEventBus();
+		// final GreetingView greetingView = new GreetingView();
+		// final GreetingPresenter greetingPresenter = new
+		// GreetingPresenter(greetingView, eventBus, dispatcher);
+		final DispatchAsync dispatcher = new StandardDispatchAsync(
+				new DefaultExceptionHandler());
+
+		final RecordsView recordsView = new RecordsView();
+		final RecordsPresenter recordsPresenter = new RecordsPresenter(
+				recordsView, eventBus, dispatcher);
+
+		final AppPresenter appPresenter = new AppPresenter(recordsPresenter);
+
 		appPresenter.go(RootPanel.get());
-		
-		
-  }
+
+	}
 }
