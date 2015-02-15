@@ -1,2 +1,0 @@
-serviceClass: com.mygwt.mymvn.client.GreetingService
-path: B57ED4A404EBAFB78C687FEA2326A1CD.gwt.rpc

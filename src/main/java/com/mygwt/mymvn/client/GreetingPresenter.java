@@ -2,6 +2,7 @@ package com.mygwt.mymvn.client;
 
 import javax.inject.Inject;
 
+import net.customware.gwt.dispatch.client.DispatchAsync;
 import net.customware.gwt.presenter.client.EventBus;
 import net.customware.gwt.presenter.client.widget.WidgetDisplay;
 import net.customware.gwt.presenter.client.widget.WidgetPresenter;
@@ -9,8 +10,13 @@ import net.customware.gwt.presenter.client.widget.WidgetPresenter;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasValue;
 import com.mygwt.mymvn.client.GreetingPresenter.Display;
+import com.mygwt.mymvn.client.rpc.SendGreetingAction;
+import com.mygwt.mymvn.client.rpc.SendGreetingResult;
 
 public class GreetingPresenter extends WidgetPresenter<Display> 
 {
@@ -31,7 +37,7 @@ public class GreetingPresenter extends WidgetPresenter<Display>
 
  //public static final Place PLACE = new Place("Greeting");
  
- //private final DispatchAsync dispatcher;
+ private final DispatchAsync dispatcher;
 
  // FUDGE FACTOR! Although this is not used, having Gin pass the object
  // to this class will force its instantiation and therefore will make the
@@ -40,14 +46,13 @@ public class GreetingPresenter extends WidgetPresenter<Display>
  //private final GreetingResponsePresenter greetingResponsePresenter;
 @Inject
  public GreetingPresenter(final Display display,
-     final EventBus eventBus
-     //,     final DispatchAsync dispatcher
+     final EventBus eventBus,     
+     final DispatchAsync dispatcher
      //, final GreetingResponsePresenter greetingResponsePresenter
      ) 
  {
   super(display, eventBus);
-  String x = new String();
-  //this.dispatcher = dispatcher;
+  this.dispatcher = dispatcher;
   
   //this.greetingResponsePresenter = greetingResponsePresenter;
   
@@ -57,24 +62,23 @@ public class GreetingPresenter extends WidgetPresenter<Display>
  /**
   * Try to send the greeting message
   */
+@UiHandler("eventButton")
  private void doSend() 
  {
- /* dispatcher.execute(new SendGreeting(display.getName().getValue()), new DisplayCallback(display) 
+  dispatcher.execute(new SendGreetingAction((String)display.getName().getValue()), 
+		  new AsyncCallback<SendGreetingResult>() 
   {
 
-   @Override
-   protected void handleFailure(final Throwable cause) {
+   public void onFailure(final Throwable cause) {
    
     Window.alert(SERVER_ERROR);
    }
 
-   @Override
-   protected void handleSuccess(final SendGreetingResult result) {
-    // take the result from the server and notify client interested components
-    eventBus.fireEvent(new GreetingSentEvent(result.getName(), result.getMessage()));
+   public void onSuccess(final SendGreetingResult result) {
+	   Window.alert("my msg");
    }
    
-  });*/
+  });
  }
 
  @Override

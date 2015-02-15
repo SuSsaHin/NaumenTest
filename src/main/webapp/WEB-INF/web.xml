@@ -14,7 +14,7 @@
   </filter-mapping>
  
   <listener>
-    <listener-class>net.pimgwt.server.RpcCommandGuiceConfig</listener-class>
+    <listener-class>com.mygwt.mymvn.server.RpcCommandGuiceConfig</listener-class>
   </listener>
 
   <!-- Default page to serve -->

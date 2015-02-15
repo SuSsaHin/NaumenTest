@@ -6,6 +6,9 @@ public class SendGreetingAction implements Action<SendGreetingResult> {
 
  private String name;
 
+ public SendGreetingAction()
+ { }
+ 
  public SendGreetingAction(final String name) {
   this.name = name;
  }

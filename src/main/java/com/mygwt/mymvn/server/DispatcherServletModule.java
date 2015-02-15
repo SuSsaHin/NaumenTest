@@ -6,6 +6,6 @@ import com.google.inject.servlet.ServletModule;
 public class DispatcherServletModule extends ServletModule {
   @Override
   protected void configureServlets() {
-    serve("/com.mygwt.mymvn.server/dispatch").with(GuiceStandardDispatchServlet.class);
+    serve("/MyGwt/dispatch").with(GuiceStandardDispatchServlet.class);
   }
 }
