@@ -1,2 +1,3 @@
 # Module MyGwt
 # RPC service class, partial path of RPC policy file
+net.customware.gwt.dispatch.client.standard.StandardDispatchService, 1B52901BB9091773C1EDE5EC2F6048ED.gwt.rpc

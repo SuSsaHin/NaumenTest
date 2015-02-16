@@ -1,6 +1,5 @@
-package com.mygwt.mymvn.client;
+package com.mygwt.mymvn.client.widgets;
 
-import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.IsWidget;
 
 public interface RecordsWidget extends IsWidget
@@ -10,11 +9,13 @@ public interface RecordsWidget extends IsWidget
 	void setPresenter(final RecordsWidget.RecordsPresenter recordsPreseter);
 
 	void setTableContent(String[][] tableContent);
+	
+	void removeRow(int index);
 
 	interface RecordsPresenter
 	{
-		void goTo(Place place);
+		void search(String text);
 		void delete(int rowIndex);
-		void edit(int rowIndex);
+		void open(int rowIndex);
 	}
 }

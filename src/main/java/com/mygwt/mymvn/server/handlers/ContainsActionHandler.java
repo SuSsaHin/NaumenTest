@@ -1,4 +1,4 @@
-package com.mygwt.mymvn.server;
+package com.mygwt.mymvn.server.handlers;
 
 import net.customware.gwt.dispatch.server.ActionHandler;
 import net.customware.gwt.dispatch.server.ExecutionContext;

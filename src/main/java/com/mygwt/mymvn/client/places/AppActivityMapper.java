@@ -1,8 +1,11 @@
-package com.mygwt.mymvn.client;
+package com.mygwt.mymvn.client.places;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.place.shared.Place;
+import com.mygwt.mymvn.client.ClientFactory;
+import com.mygwt.mymvn.client.RecordCardActivity;
+import com.mygwt.mymvn.client.RecordsActivity;
 
 public class AppActivityMapper implements ActivityMapper
 {

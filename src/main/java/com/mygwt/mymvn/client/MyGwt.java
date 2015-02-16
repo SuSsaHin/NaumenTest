@@ -10,6 +10,9 @@ import com.google.gwt.place.shared.PlaceHistoryHandler;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.web.bindery.event.shared.EventBus;
+import com.mygwt.mymvn.client.places.AppActivityMapper;
+import com.mygwt.mymvn.client.places.AppPlaceHistoryMapper;
+import com.mygwt.mymvn.client.places.RecordsPlace;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.

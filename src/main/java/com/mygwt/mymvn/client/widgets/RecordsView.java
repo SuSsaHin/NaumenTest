@@ -1,19 +1,17 @@
-package com.mygwt.mymvn.client;
+package com.mygwt.mymvn.client.widgets;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.Grid;
-import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
 public class RecordsView extends Composite implements RecordsWidget
 {
 	private final TextBox searchText;
+	private final Button addButton;
 	private final Button searchButton;
 	private final FlexTable records;
 
@@ -37,6 +35,16 @@ public class RecordsView extends Composite implements RecordsWidget
 		});
 		panel.add(searchButton);
 		
+		addButton = new Button("Add");
+		addButton.addClickHandler(new ClickHandler()
+		{
+			public void onClick(ClickEvent event)
+			{
+				onAddClick();
+			}
+		});
+		panel.add(addButton);
+		
 		records = new FlexTable();
 		panel.add(records);
 		
@@ -44,7 +52,7 @@ public class RecordsView extends Composite implements RecordsWidget
 
 	private void onSearchClick()
 	{
-		recordsPreseter.goTo(new RecordsPlace(searchText.getText()));
+		recordsPreseter.search(searchText.getText());
 	}
 
 	private void onDeleteClick(int rowIndex)
@@ -53,9 +61,19 @@ public class RecordsView extends Composite implements RecordsWidget
 		records.removeRow(rowIndex);
 	}
 	
-	private void onEditeClick(int rowIndex)
+	private void onOpenClick(int rowIndex)
 	{
-		recordsPreseter.edit(rowIndex);
+		recordsPreseter.open(rowIndex);
+	}
+	
+	private void onEditClick(int rowIndex)
+	{
+		
+	}
+	
+	private void onAddClick()
+	{
+		
 	}
 	
 	public void setPresenter(final RecordsWidget.RecordsPresenter recordsPreseter)
@@ -84,6 +102,25 @@ public class RecordsView extends Composite implements RecordsWidget
 			}
 
 			final int rowIndex = row;
+			
+			Button openBtn = new Button("Open");
+			openBtn.addClickHandler(new ClickHandler()
+			{
+				public void onClick(ClickEvent event)
+				{
+					onOpenClick(rowIndex);
+				}
+			});
+			
+			Button editBtn = new Button("Edit");
+			editBtn.addClickHandler(new ClickHandler()
+			{
+				public void onClick(ClickEvent event)
+				{
+					onEditClick(rowIndex);
+				}
+			});
+			
 			Button deleteBtn = new Button("Delete");
 			deleteBtn.addClickHandler(new ClickHandler()
 			{
@@ -93,16 +130,14 @@ public class RecordsView extends Composite implements RecordsWidget
 				}
 			});
 			
-			Button editeBtn = new Button("Edit");
-			editeBtn.addClickHandler(new ClickHandler()
-			{
-				public void onClick(ClickEvent event)
-				{
-					onEditeClick(rowIndex);
-				}
-			});
-			records.setWidget(row, tableWidth, editeBtn);
-			records.setWidget(row, tableWidth + 1, deleteBtn);
+			records.setWidget(row, tableWidth, openBtn);
+			records.setWidget(row, tableWidth + 1, editBtn);
+			records.setWidget(row, tableWidth + 2, deleteBtn);
 		}
+	}
+
+	public void removeRow(int rowIndex)
+	{
+		records.removeRow(rowIndex);
 	}
 }

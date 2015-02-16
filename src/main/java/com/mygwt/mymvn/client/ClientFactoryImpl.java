@@ -7,6 +7,10 @@ import net.customware.gwt.dispatch.client.standard.StandardDispatchAsync;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.web.bindery.event.shared.EventBus;
+import com.mygwt.mymvn.client.widgets.RecordCardView;
+import com.mygwt.mymvn.client.widgets.RecordCardWidget;
+import com.mygwt.mymvn.client.widgets.RecordsView;
+import com.mygwt.mymvn.client.widgets.RecordsWidget;
 
 public class ClientFactoryImpl implements ClientFactory
 {

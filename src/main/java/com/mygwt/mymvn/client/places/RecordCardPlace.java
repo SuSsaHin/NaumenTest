@@ -1,4 +1,4 @@
-package com.mygwt.mymvn.client;
+package com.mygwt.mymvn.client.places;
 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;

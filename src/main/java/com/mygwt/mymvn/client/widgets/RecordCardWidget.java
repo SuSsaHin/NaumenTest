@@ -1,4 +1,4 @@
-package com.mygwt.mymvn.client;
+package com.mygwt.mymvn.client.widgets;
 
 import com.google.gwt.user.client.ui.IsWidget;
 

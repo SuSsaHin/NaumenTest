@@ -9,14 +9,19 @@ import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.web.bindery.event.shared.EventBus;
+import com.mygwt.mymvn.client.events.DeleteEvent;
+import com.mygwt.mymvn.client.events.DeleteEventHandler;
+import com.mygwt.mymvn.client.places.RecordsPlace;
 import com.mygwt.mymvn.client.rpc.DeleteAction;
 import com.mygwt.mymvn.client.rpc.DeleteResult;
 import com.mygwt.mymvn.client.rpc.SearchAction;
 import com.mygwt.mymvn.client.rpc.SearchResult;
+import com.mygwt.mymvn.client.widgets.RecordsWidget;
 import com.mygwt.mymvn.shared.PhoneRecord;
 
 public class RecordsActivity extends AbstractActivity implements
-		RecordsWidget.RecordsPresenter
+		RecordsWidget.RecordsPresenter, DeleteEventHandler
 {
 	private final DispatchAsync dispatcher;
 	private final RecordsWidget display;
@@ -31,6 +36,9 @@ public class RecordsActivity extends AbstractActivity implements
 		display = clientFactory.getRecordsWidget();
 		searchedText = place.getNamesPart();
 		records = new ArrayList<PhoneRecord>();
+		
+		EventBus eventBus = clientFactory.getEventBus();
+		eventBus.addHandler(DeleteEvent.getType(), this);
 	}
 
 	public void updateTableContent()
@@ -74,7 +82,7 @@ public class RecordsActivity extends AbstractActivity implements
 		panel.setWidget(display.asWidget());
 	}
 	
-	public void goTo(Place place) {
+	private void goTo(Place place) {
         clientFactory.getPlaceController().goTo(place);
     }
 
@@ -96,9 +104,21 @@ public class RecordsActivity extends AbstractActivity implements
 				});
 	}
 	
-	public void edit(final int rowIndex)
+	public void open(final int rowIndex)
 	{
 		PhoneRecord edited = records.get(rowIndex);
 		Window.open("../MyGwt.html#edit:" + edited.getName() + ":" + edited.getPhone(), "Edit", "resizable = false");
+	}
+
+	public void search(String text)
+	{
+		goTo(new RecordsPlace(text));
+	}
+
+	public void onDelete(DeleteEvent event)
+	{
+		int index = records.indexOf(event.getRecord());
+		records.remove(index);
+		display.removeRow(index);
 	}
 }
