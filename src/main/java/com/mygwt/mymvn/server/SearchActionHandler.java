@@ -11,7 +11,7 @@ import com.mygwt.mymvn.client.rpc.SearchResult;
 import com.mygwt.mymvn.server.logic.TestRepository;
 import com.mygwt.mymvn.shared.PhoneRecord;
 
-public class SearchHandler implements ActionHandler<SearchAction, SearchResult>
+public class SearchActionHandler implements ActionHandler<SearchAction, SearchResult>
 {
 
 	public SearchResult execute(SearchAction action, ExecutionContext context)
@@ -19,8 +19,7 @@ public class SearchHandler implements ActionHandler<SearchAction, SearchResult>
 	{
 		ArrayList<PhoneRecord> records = TestRepository.getInstance().get(
 				action.getNamePart());
-		SearchResult searchResult = new SearchResult(records);
-		return searchResult;
+		return new SearchResult(records);
 	}
 
 	public Class<SearchAction> getActionType()

@@ -62,4 +62,9 @@ public class TestRepository implements PhoneRecordsRepository
 		}
 		return result;
 	}
+
+	public boolean contains(PhoneRecord record)
+	{
+		return records.contains(record);
+	}
 }
