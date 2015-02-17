@@ -12,9 +12,9 @@ public class PhoneRecordsDAOTest implements PhoneRecordsDAO
 	PhoneRecordsDAOTest()
 	{
 		records = new ArrayList<PhoneRecord>();
-		add(new PhoneRecord("n1", "8888"));
-		add(new PhoneRecord("n2", "9999"));
-		add(new PhoneRecord("n3", "1111"));
+		add(new PhoneRecord("qqqq", "8888"));
+		add(new PhoneRecord("wwww", "9999"));
+		add(new PhoneRecord("eeee", "1111"));
 	}
 
 	@Override
