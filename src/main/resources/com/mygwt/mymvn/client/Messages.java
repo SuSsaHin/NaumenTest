@@ -8,4 +8,12 @@ public class Messages
 
 	public static final String NONEXISTENT_RECORD = "You are trying to open nonexistent phone record";
 	public static final String ALREADY_EXISTED_RECORD = "You are trying to add phone record that already exists";
+
+	public static final String BAD_NAME_FORMAT = "Bad name format";
+
+	public static final String BAD_PHONE_FORMAT = "Bad phone format";
+	
+	public static final String BAD_URL = "Bad URL";
+
+	public static final String CONFIRM_DELETE = "Are you realy want to delete this record?";
 }

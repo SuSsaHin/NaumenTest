@@ -58,7 +58,6 @@ public class RecordsView extends Composite implements RecordsWidget
 	private void onDeleteClick(int rowIndex)
 	{
 		presenter.delete(rowIndex);
-		records.removeRow(rowIndex);
 	}
 	
 	private void onOpenClick(int rowIndex)

@@ -22,14 +22,14 @@ public class RecordEditActivity extends AbstractActivity implements
 		RecordEditWidget.RecordEditPresenter
 {
 	private final DispatchAsync dispatcher;
-	private final RecordEditWidget display;
+	private final RecordEditWidget widget;
 	private final PlaceController placeController;
-	private final long recordId;
+	private long recordId;
 
 	public RecordEditActivity(RecordEditPlace place, ClientFactory clientFactory)
 	{
 		dispatcher = clientFactory.getDispatcher();
-		display = clientFactory.getRecordEditWidget();
+		widget = clientFactory.getRecordEditWidget();
 		placeController = clientFactory.getPlaceController();
 		recordId = place.getRecordId();
 	}
@@ -38,6 +38,12 @@ public class RecordEditActivity extends AbstractActivity implements
 	public void start(final AcceptsOneWidget panel, EventBus eventBus)
 	{
 		Window.setTitle("Edit");
+		
+		if (recordId == -1)
+		{
+			Window.alert(Messages.BAD_URL);
+			return;
+		}
 		
 		final RecordEditWidget.RecordEditPresenter presenter = this;
 		
@@ -59,11 +65,11 @@ public class RecordEditActivity extends AbstractActivity implements
 							return;
 						}
 						
-						display.setPresenter(presenter);
-						display.setName(record.getName());
-						display.setPhone(record.getPhone());
+						widget.setPresenter(presenter);
+						widget.setName(record.getName());
+						widget.setPhone(record.getPhone());
 						
-						panel.setWidget(display.asWidget());
+						panel.setWidget(widget.asWidget());
 					}
 				});
 	}
@@ -71,6 +77,18 @@ public class RecordEditActivity extends AbstractActivity implements
 	@Override
 	public void save(String name, String phone)
 	{
+		if (!PhoneRecord.verifyName(name))
+		{
+			Window.alert(Messages.BAD_NAME_FORMAT);
+			return;
+		}
+		
+		if (!PhoneRecord.verifyPhone(phone))
+		{
+			Window.alert(Messages.BAD_PHONE_FORMAT);
+			return;
+		}
+		
 		dispatcher.execute(
 				new EditAction(recordId, new PhoneRecord(name, phone)),
 				new AsyncCallback<EditResult>()

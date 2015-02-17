@@ -24,7 +24,7 @@ public class RecordsActivity extends AbstractActivity implements
 		RecordsWidget.RecordsPresenter
 {
 	private final DispatchAsync dispatcher;
-	private final RecordsWidget display;
+	private final RecordsWidget widget;
 	private final PlaceController placeController;
 	private final String searchedText;
 	private ArrayList<PhoneRecord> records;
@@ -33,7 +33,7 @@ public class RecordsActivity extends AbstractActivity implements
 	{
 		placeController = clientFactory.getPlaceController();
 		dispatcher = clientFactory.getDispatcher();
-		display = clientFactory.getRecordsWidget();
+		widget = clientFactory.getRecordsWidget();
 		searchedText = place.getNamesPart();
 		records = new ArrayList<PhoneRecord>();
 	}
@@ -65,7 +65,7 @@ public class RecordsActivity extends AbstractActivity implements
 			tableContent[row][0] = records.get(row).getName();
 			tableContent[row][1] = records.get(row).getPhone();
 		}
-		display.setTableContent(tableContent);
+		widget.setTableContent(tableContent);
 	}
 
 	@Override
@@ -74,16 +74,19 @@ public class RecordsActivity extends AbstractActivity implements
 	{
 		Window.setTitle("PhoneBook");
 
-		display.setSearchText(searchedText);
-		display.setPresenter(this);
+		widget.setSearchText(searchedText);
+		widget.setPresenter(this);
 		updateTableContent();
 
-		panel.setWidget(display.asWidget());
+		panel.setWidget(widget.asWidget());
 	}
 
 	@Override
 	public void delete(final int rowIndex)
 	{
+		if(!Window.confirm(Messages.CONFIRM_DELETE))
+			return;
+		
 		dispatcher.execute(new DeleteAction(records.get(rowIndex).getId()),
 				new AsyncCallback<DeleteResult>()
 				{
@@ -95,6 +98,7 @@ public class RecordsActivity extends AbstractActivity implements
 					public void onSuccess(final DeleteResult result)
 					{
 						records.remove(rowIndex);
+						widget.removeRow(rowIndex);
 					}
 				});
 	}

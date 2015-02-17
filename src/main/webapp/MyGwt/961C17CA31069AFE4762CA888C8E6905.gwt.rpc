@@ -22,7 +22,6 @@ com.mygwt.mymvn.client.rpc.SearchAction, false, false, true, true, com.mygwt.mym
 com.mygwt.mymvn.client.rpc.SearchResult, true, true, false, false, com.mygwt.mymvn.client.rpc.SearchResult/4035384689, 4035384689
 [Lcom.mygwt.mymvn.client.rpc.SearchResult;, true, true, false, false, [Lcom.mygwt.mymvn.client.rpc.SearchResult;/1370993580, 1370993580
 com.mygwt.mymvn.shared.PhoneRecord, true, true, true, true, com.mygwt.mymvn.shared.PhoneRecord/2018478220, 2018478220
-@ClientFields,com.mygwt.mymvn.shared.PhoneRecord,id,name,phone
 java.lang.Exception, true, false, true, false, java.lang.Exception/1920171873, 1920171873
 java.lang.RuntimeException, true, false, true, false, java.lang.RuntimeException/515124647, 515124647
 java.lang.String, true, true, true, true, java.lang.String/2004016611, 2004016611

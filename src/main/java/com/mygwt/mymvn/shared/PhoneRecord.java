@@ -68,7 +68,29 @@ public class PhoneRecord implements Serializable
         if (getClass() != obj.getClass())
             return false;
         PhoneRecord other = (PhoneRecord) obj;
+        
+        if (name.equalsIgnoreCase(other.name))
+        	return false;
+        
+        String phone1 = phone.replaceAll("\\D", "");
+        String phone2 = other.phone.replaceAll("\\D", "");
 
-        return (name.equals(other.name) && phone.equals(other.phone));
+        return phone1.equals(phone2);
     }
+
+	public static boolean verifyName(String name)
+	{
+		if (name == null || name.length() < 3)
+			return false;
+		
+		return name.matches("[A-Za-z ]+");
+	}
+	
+	public static boolean verifyPhone(String phone)
+	{
+		if (phone == null || phone.isEmpty())
+			return false;
+		
+		return phone.matches("[1-9][0-9- ]+");
+	}
 }

@@ -21,7 +21,7 @@ public class RecordCardActivity extends AbstractActivity implements
 		RecordCardWidget.RecordCardPresenter
 {
 	private final DispatchAsync dispatcher;
-	private final RecordCardWidget display;
+	private final RecordCardWidget widget;
 	private final PlaceController placeController;
 	
 	private final long recordId;
@@ -30,15 +30,21 @@ public class RecordCardActivity extends AbstractActivity implements
 	{
 		placeController = clientFactory.getPlaceController();
 		dispatcher = clientFactory.getDispatcher();
-		display = clientFactory.getRecordCardWidget();
+		widget = clientFactory.getRecordCardWidget();
 		recordId = place.getRecordId();
 	}
 
 	@Override
 	public void start(final AcceptsOneWidget panel, com.google.gwt.event.shared.EventBus eventBus)
 	{
-		final RecordCardWidget.RecordCardPresenter presenter = this;
 		Window.setTitle("Card");
+		if (recordId == -1)
+		{
+			Window.alert(Messages.BAD_URL);
+			return;
+		}
+		
+		final RecordCardWidget.RecordCardPresenter presenter = this;
 		
 		dispatcher.execute(
 				new GetByIdAction(recordId),
@@ -58,11 +64,11 @@ public class RecordCardActivity extends AbstractActivity implements
 							return;
 						}
 						
-						display.setPresenter(presenter);
-						display.setName(record.getName());
-						display.setPhone(record.getPhone());
+						widget.setPresenter(presenter);
+						widget.setName(record.getName());
+						widget.setPhone(record.getPhone());
 						
-						panel.setWidget(display.asWidget());
+						panel.setWidget(widget.asWidget());
 					}
 				});
 	}
@@ -70,6 +76,9 @@ public class RecordCardActivity extends AbstractActivity implements
 	@Override
 	public void delete()
 	{
+		if(!Window.confirm(Messages.CONFIRM_DELETE))
+			return;
+		
 		dispatcher.execute(
 				new DeleteAction(recordId),
 				new AsyncCallback<DeleteResult>()

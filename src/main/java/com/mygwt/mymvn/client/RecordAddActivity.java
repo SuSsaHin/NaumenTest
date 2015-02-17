@@ -20,14 +20,14 @@ public class RecordAddActivity extends AbstractActivity implements
 		RecordEditWidget.RecordEditPresenter
 {
 	private final DispatchAsync dispatcher;
-	private final RecordEditWidget display;
+	private final RecordEditWidget widget;
 	private final PlaceController placeController;
 
 	public RecordAddActivity(RecordAddPlace place, ClientFactory clientFactory)
 	{
 		placeController = clientFactory.getPlaceController();
 		dispatcher = clientFactory.getDispatcher();
-		display = clientFactory.getRecordEditWidget();
+		widget = clientFactory.getRecordEditWidget();
 	}
 
 
@@ -36,16 +36,28 @@ public class RecordAddActivity extends AbstractActivity implements
 	{
 		Window.setTitle("Add");
 		
-		display.setPresenter(this);
-		display.setName("");
-		display.setPhone("");
+		widget.setPresenter(this);
+		widget.setName("");
+		widget.setPhone("");
 		
-		panel.setWidget(display.asWidget());
+		panel.setWidget(widget.asWidget());
 	}
 
 	@Override
 	public void save(String name, String phone)
 	{
+		if (!PhoneRecord.verifyName(name))
+		{
+			Window.alert(Messages.BAD_NAME_FORMAT);
+			return;
+		}
+		
+		if (!PhoneRecord.verifyPhone(phone))
+		{
+			Window.alert(Messages.BAD_PHONE_FORMAT);
+			return;
+		}
+		
 		dispatcher.execute(
 				new AddAction(new PhoneRecord(name, phone)),
 				new AsyncCallback<AddResult>()

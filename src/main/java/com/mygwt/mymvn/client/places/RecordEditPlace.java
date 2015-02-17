@@ -16,7 +16,9 @@ public class RecordEditPlace extends Place
 			recordId = Long.parseLong(token);
 		}
 		catch (NumberFormatException ex)
-		{}
+		{
+			recordId = -1L;
+		}
 	}
 
 	public Long getRecordId()
