@@ -3,28 +3,25 @@ package com.mygwt.mymvn.client.places;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
 import com.google.gwt.place.shared.Prefix;
-import com.mygwt.mymvn.shared.PhoneRecord;
 
 public class RecordCardPlace extends Place
 {
-	private PhoneRecord record;
-	private static final String tokenPrefix = "edit";
-	private static final String separator = ":";
+	public static final String tokenPrefix = "open";
+	private Long recordId;
 
 	public RecordCardPlace(String token)
 	{
-		String[] parts = token.split(separator);
-		if (parts.length != PhoneRecord.fieldsCount)
+		try
 		{
-			record = null;
-			return;
+			recordId = Long.parseLong(token);
 		}
-		this.record = new PhoneRecord(parts[0], parts[1]);
+		catch (NumberFormatException ex)
+		{}
 	}
 
-	public PhoneRecord getRecord()
+	public Long getRecordId()
 	{
-		return record;
+		return recordId;
 	}
 
 	@Prefix(value = tokenPrefix)
@@ -32,7 +29,7 @@ public class RecordCardPlace extends Place
 	{
 		public String getToken(RecordCardPlace place)
 		{
-			return place.getRecord().getName() + separator + place.getRecord().getPhone();
+			return place.getRecordId().toString();
 		}
 
 		public RecordCardPlace getPlace(String token)

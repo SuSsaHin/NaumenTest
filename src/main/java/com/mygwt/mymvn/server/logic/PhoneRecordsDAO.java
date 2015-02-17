@@ -4,15 +4,17 @@ import java.util.ArrayList;
 
 import com.mygwt.mymvn.shared.PhoneRecord;
 
-public interface PhoneRecordsRepository
+public interface PhoneRecordsDAO
 {
 	void add(PhoneRecord added);
 
-	void delete(PhoneRecord deleted);
+	void delete(long deletedId);
 
 	void edit(PhoneRecord source, PhoneRecord dest);
-
-	ArrayList<PhoneRecord> get();
-
+	
+	PhoneRecord get(long id);
+	
 	ArrayList<PhoneRecord> get(String namePart);
+
+	ArrayList<PhoneRecord> getAll();
 }

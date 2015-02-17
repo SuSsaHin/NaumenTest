@@ -6,5 +6,5 @@ public class Messages
 			+ "attempting to contact the server. Please check your network "
 			+ "connection and try again.";
 
-	public static final String BAD_RECORD = "You are trying to open nonexistent phone record";
+	public static final String NONEXISTENT_RECORD = "You are trying to open nonexistent phone record";
 }

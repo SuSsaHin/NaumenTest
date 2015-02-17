@@ -4,38 +4,30 @@ import java.util.ArrayList;
 
 import com.mygwt.mymvn.shared.PhoneRecord;
 
-public class TestRepository implements PhoneRecordsRepository
+public class PhoneRecordsDAOTest implements PhoneRecordsDAO
 {
-
+	private static long id = 1;
 	private final ArrayList<PhoneRecord> records;
-	private static TestRepository instance;
 
-	private TestRepository()
+	PhoneRecordsDAOTest()
 	{
 		records = new ArrayList<PhoneRecord>();
-		records.add(new PhoneRecord("n1", "8888"));
-		records.add(new PhoneRecord("n2", "9999"));
-		records.add(new PhoneRecord("n3", "1111"));
+		add(new PhoneRecord("n1", "8888"));
+		add(new PhoneRecord("n2", "9999"));
+		add(new PhoneRecord("n3", "1111"));
 	}
 
-	public static TestRepository getInstance()
-	{
-		return instance == null ? instance = new TestRepository() : instance;
-	}
-
+	@Override
 	public void add(PhoneRecord added)
 	{
+		added.setId(id++);
 		if (records.contains(added))
 			return;
 
 		records.add(added);
 	}
 
-	public void delete(PhoneRecord deleted)
-	{
-		records.remove(deleted);
-	}
-
+	@Override
 	public void edit(PhoneRecord source, PhoneRecord dest)
 	{
 		int index = records.indexOf(source);
@@ -44,12 +36,14 @@ public class TestRepository implements PhoneRecordsRepository
 
 		records.set(index, dest);
 	}
-
-	public ArrayList<PhoneRecord> get()
+	
+	@Override
+	public ArrayList<PhoneRecord> getAll()
 	{
 		return records;
 	}
 
+	@Override
 	public ArrayList<PhoneRecord> get(String namePart)
 	{
 		ArrayList<PhoneRecord> result = new ArrayList<PhoneRecord>();
@@ -63,8 +57,22 @@ public class TestRepository implements PhoneRecordsRepository
 		return result;
 	}
 
-	public boolean contains(PhoneRecord record)
+	@Override
+	public void delete(long deletedId)
 	{
-		return records.contains(record);
+		records.removeIf(p->p.getId() == id);
+	}
+
+	@Override
+	public PhoneRecord get(long id)
+	{
+		for (PhoneRecord record : records)
+		{
+			if (record.getId() == id)
+			{
+				return record;
+			}
+		}
+		return null;
 	}
 }

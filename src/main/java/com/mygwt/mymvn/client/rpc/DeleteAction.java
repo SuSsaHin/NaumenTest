@@ -1,24 +1,22 @@
 package com.mygwt.mymvn.client.rpc;
 
-import com.mygwt.mymvn.shared.PhoneRecord;
-
 import net.customware.gwt.dispatch.shared.Action;
 
 public class DeleteAction implements Action<DeleteResult>
 {
-	private PhoneRecord deleted;
+	private long deletedId;
 
 	public DeleteAction()
 	{
 	}
 
-	public DeleteAction(final PhoneRecord deleted)
+	public DeleteAction(final long deletedId)
 	{
-		this.deleted = deleted;
+		this.deletedId = deletedId;
 	}
 
-	public PhoneRecord getDeleted()
+	public long getDeletedId()
 	{
-		return deleted;
+		return deletedId;
 	}
 }

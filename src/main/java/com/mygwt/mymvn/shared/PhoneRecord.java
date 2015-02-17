@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class PhoneRecord implements Serializable
 {
 	private static final long serialVersionUID = 936611318649062911L;
+	private long id;
 	private String name;
 	private String phone;
 	
@@ -52,4 +53,14 @@ public class PhoneRecord implements Serializable
 
         return (name.equals(other.name) && phone.equals(other.phone));
     }
+
+	public long getId()
+	{
+		return id;
+	}
+
+	public void setId(long id)
+	{
+		this.id = id;
+	}
 }

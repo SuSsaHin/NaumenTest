@@ -8,17 +8,18 @@ import net.customware.gwt.dispatch.shared.ActionException;
 
 import com.mygwt.mymvn.client.rpc.SearchAction;
 import com.mygwt.mymvn.client.rpc.SearchResult;
-import com.mygwt.mymvn.server.logic.TestRepository;
+import com.mygwt.mymvn.server.logic.PhoneRecordsDAOFactory;
 import com.mygwt.mymvn.shared.PhoneRecord;
 
-public class SearchActionHandler implements ActionHandler<SearchAction, SearchResult>
+public class SearchActionHandler implements
+		ActionHandler<SearchAction, SearchResult>
 {
 
 	public SearchResult execute(SearchAction action, ExecutionContext context)
 			throws ActionException
 	{
-		ArrayList<PhoneRecord> records = TestRepository.getInstance().get(
-				action.getNamePart());
+		ArrayList<PhoneRecord> records = PhoneRecordsDAOFactory.getInstance()
+				.get().get(action.getNamePart());
 		return new SearchResult(records);
 	}
 

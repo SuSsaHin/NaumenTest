@@ -6,7 +6,7 @@ import net.customware.gwt.dispatch.shared.ActionException;
 
 import com.mygwt.mymvn.client.rpc.DeleteAction;
 import com.mygwt.mymvn.client.rpc.DeleteResult;
-import com.mygwt.mymvn.server.logic.TestRepository;
+import com.mygwt.mymvn.server.logic.PhoneRecordsDAOFactory;
 
 public class DeleteActionHandler implements
 		ActionHandler<DeleteAction, DeleteResult>
@@ -15,7 +15,7 @@ public class DeleteActionHandler implements
 	public DeleteResult execute(DeleteAction action, ExecutionContext context)
 			throws ActionException
 	{
-		TestRepository.getInstance().delete(action.getDeleted());
+		PhoneRecordsDAOFactory.getInstance().get().delete(action.getDeletedId());
 		return new DeleteResult();
 	}
 
