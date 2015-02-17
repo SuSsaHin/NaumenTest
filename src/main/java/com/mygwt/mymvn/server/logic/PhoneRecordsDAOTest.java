@@ -18,7 +18,7 @@ public class PhoneRecordsDAOTest implements PhoneRecordsDAO
 	}
 
 	@Override
-	public long add(PhoneRecord added)
+	public long add(final PhoneRecord added)
 	{
 		if (records.contains(added))
 			return -1;
@@ -30,7 +30,7 @@ public class PhoneRecordsDAOTest implements PhoneRecordsDAO
 	}
 
 	@Override
-	public boolean update(long updatedId, PhoneRecord dest)
+	public boolean update(final long updatedId, final PhoneRecord dest)
 	{
 		PhoneRecord record = get(updatedId);
 		if (record == null || records.contains(dest))
@@ -48,7 +48,7 @@ public class PhoneRecordsDAOTest implements PhoneRecordsDAO
 	}
 
 	@Override
-	public ArrayList<PhoneRecord> get(String namePart)
+	public ArrayList<PhoneRecord> get(final String namePart)
 	{
 		ArrayList<PhoneRecord> result = new ArrayList<PhoneRecord>();
 		for (PhoneRecord record : records)
@@ -62,13 +62,13 @@ public class PhoneRecordsDAOTest implements PhoneRecordsDAO
 	}
 
 	@Override
-	public void delete(long deletedId)
+	public void delete(final long deletedId)
 	{
 		records.removeIf(p->p.getId() == deletedId);
 	}
 
 	@Override
-	public PhoneRecord get(long id)
+	public PhoneRecord get(final long id)
 	{
 		for (PhoneRecord record : records)
 		{

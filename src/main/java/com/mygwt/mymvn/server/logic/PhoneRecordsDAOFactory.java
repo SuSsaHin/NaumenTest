@@ -7,7 +7,7 @@ public class PhoneRecordsDAOFactory
 	
 	private PhoneRecordsDAOFactory()
 	{
-		phoneRecordsDAO = new PhoneRecordsDAOTest();
+		phoneRecordsDAO = new PhoneRecordsDAOImpl();
 	}
 	
 	public static PhoneRecordsDAOFactory getInstance()

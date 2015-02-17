@@ -6,15 +6,15 @@ import com.mygwt.mymvn.shared.PhoneRecord;
 
 public interface PhoneRecordsDAO
 {
-	long add(PhoneRecord added);
+	long add(final PhoneRecord added);
 
-	void delete(long deletedId);
+	void delete(final long deletedId);
 
-	boolean update(long updatedId, PhoneRecord dest);
+	boolean update(final long updatedId, final PhoneRecord dest);
 	
-	PhoneRecord get(long id);
+	PhoneRecord get(final long id);
 	
-	ArrayList<PhoneRecord> get(String namePart);
+	ArrayList<PhoneRecord> get(final String namePart);
 
 	ArrayList<PhoneRecord> getAll();
 }

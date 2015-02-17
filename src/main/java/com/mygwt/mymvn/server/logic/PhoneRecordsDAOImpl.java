@@ -1,69 +1,110 @@
 package com.mygwt.mymvn.server.logic;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import com.mygwt.mymvn.shared.PhoneRecord;
 
 public class PhoneRecordsDAOImpl implements PhoneRecordsDAO
 {
 	@Override
-	public long add(PhoneRecord added) throws HibernateException
+	public long add(final PhoneRecord added) throws HibernateException
 	{
-		Session session = null;
+		Session session = HibernateUtil.getCurrentSession();
+		Transaction trans = session.beginTransaction();
+		long id;
+		
 		try
 		{
-			session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();
-			session.save(added);
-			session.getTransaction().commit();
+			id = (long) session.save(added);
+			trans.commit();
 		}
-		finally
+		catch(HibernateException ex)
 		{
-			if (session != null && session.isOpen())
-			{
-				session.close();
-			}
+			trans.rollback();
+			return -1;
 		}
-		
-		return -1;
+	
+		return id;
 	}
 
 	@Override
-	public boolean update(long updatedId, PhoneRecord dest) throws HibernateException
+	public boolean update(final long updatedId, final PhoneRecord dest)
+			throws HibernateException
 	{
-		// TODO Auto-generated method stub
-		return false;
+		PhoneRecord record = new PhoneRecord(dest.getName(), dest.getPhone());
+		record.setId(updatedId);
+		
+		Session session = HibernateUtil.getCurrentSession();
+		Transaction trans = session.beginTransaction();
+		
+		try
+		{
+			session.merge(record);
+			trans.commit();
+		}
+		catch(HibernateException ex)
+		{
+			trans.rollback();
+			return false;
+		}
+
+
+		return true;
 	}
 
 	@Override
 	public ArrayList<PhoneRecord> getAll() throws HibernateException
 	{
-		// TODO Auto-generated method stub
-		return null;
+		Session session = HibernateUtil.getCurrentSession();
+		Transaction trans = session.beginTransaction();
+		
+		List<PhoneRecord> records = session.createCriteria(PhoneRecord.class)
+				.list();
+		
+		trans.commit();
+		return new ArrayList<PhoneRecord>(records);
 	}
 
 	@Override
-	public ArrayList<PhoneRecord> get(String namePart) throws HibernateException
+	public ArrayList<PhoneRecord> get(final String namePart)
+			throws HibernateException
 	{
-		// TODO Auto-generated method stub
-		return null;
+		Session session = HibernateUtil.getCurrentSession();
+		Transaction trans = session.beginTransaction();
+		
+		List<PhoneRecord> records = session.createCriteria(PhoneRecord.class)
+				.add(Restrictions.like("name", "%" + namePart + "%")).list();
+
+		trans.commit();
+		return new ArrayList<PhoneRecord>(records);
 	}
 
 	@Override
 	public void delete(long deletedId)
 	{
-		// TODO Auto-generated method stub
+		Session session = HibernateUtil.getCurrentSession();
+		Transaction trans = session.beginTransaction();
 		
+		session.delete(session.load(PhoneRecord.class, deletedId));
+		
+		trans.commit();
 	}
 
 	@Override
-	public PhoneRecord get(long id)
+	public PhoneRecord get(final long id)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		Session session = HibernateUtil.getCurrentSession();
+		Transaction trans = session.beginTransaction();
+
+		PhoneRecord record = (PhoneRecord) session.get(PhoneRecord.class, id);
+		trans.commit();
+		return record;
 	}
 
 }
