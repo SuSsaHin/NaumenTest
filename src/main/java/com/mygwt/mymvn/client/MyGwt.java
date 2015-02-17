@@ -28,8 +28,9 @@ public class MyGwt implements EntryPoint
 	@Override
 	public void onModuleLoad()
 	{
-		ClientFactory clientFactory = GWT.create(ClientFactory.class);
-		EventBus eventBus = clientFactory.getEventBus();
+		//ClientFactory clientFactory = GWT.create(ClientFactory.class);
+		ClientFactory clientFactory = new ClientFactoryImpl();
+		EventBus eventBus = clientFactory.getSimpleEventBus();
 		PlaceController placeController = clientFactory.getPlaceController();
 
 		ActivityMapper activityMapper = new AppActivityMapper(clientFactory);

@@ -6,7 +6,7 @@ public interface RecordsWidget extends IsWidget
 {
 	void setSearchText(String searchText);
 	
-	void setPresenter(final RecordsWidget.RecordsPresenter recordsPreseter);
+	void setPresenter(final RecordsWidget.RecordsPresenter preseter);
 
 	void setTableContent(String[][] tableContent);
 	
@@ -17,5 +17,7 @@ public interface RecordsWidget extends IsWidget
 		void search(String text);
 		void delete(int rowIndex);
 		void open(int rowIndex);
+		void edit(int rowIndex);
+		void add();
 	}
 }

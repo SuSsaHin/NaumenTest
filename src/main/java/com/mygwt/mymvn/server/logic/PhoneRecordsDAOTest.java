@@ -6,7 +6,7 @@ import com.mygwt.mymvn.shared.PhoneRecord;
 
 public class PhoneRecordsDAOTest implements PhoneRecordsDAO
 {
-	private static long id = 1;
+	private static long nextId = 1;
 	private final ArrayList<PhoneRecord> records;
 
 	PhoneRecordsDAOTest()
@@ -18,23 +18,27 @@ public class PhoneRecordsDAOTest implements PhoneRecordsDAO
 	}
 
 	@Override
-	public void add(PhoneRecord added)
+	public long add(PhoneRecord added)
 	{
-		added.setId(id++);
 		if (records.contains(added))
-			return;
-
+			return -1;
+		
+		added.setId(nextId);
 		records.add(added);
+		
+		return nextId++;
 	}
 
 	@Override
-	public void edit(PhoneRecord source, PhoneRecord dest)
+	public boolean update(long updatedId, PhoneRecord dest)
 	{
-		int index = records.indexOf(source);
-		if (index == -1)
-			return;
+		PhoneRecord record = get(updatedId);
+		if (record == null || records.contains(dest))
+			return false;
 
-		records.set(index, dest);
+		record.setName(dest.getName());
+		record.setPhone(dest.getPhone());
+		return true;
 	}
 	
 	@Override
@@ -60,7 +64,7 @@ public class PhoneRecordsDAOTest implements PhoneRecordsDAO
 	@Override
 	public void delete(long deletedId)
 	{
-		records.removeIf(p->p.getId() == id);
+		records.removeIf(p->p.getId() == deletedId);
 	}
 
 	@Override

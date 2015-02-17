@@ -15,7 +15,7 @@ public class RecordsView extends Composite implements RecordsWidget
 	private final Button searchButton;
 	private final FlexTable records;
 
-	private RecordsWidget.RecordsPresenter recordsPreseter;
+	private RecordsWidget.RecordsPresenter presenter;
 
 	public RecordsView()
 	{
@@ -52,34 +52,34 @@ public class RecordsView extends Composite implements RecordsWidget
 
 	private void onSearchClick()
 	{
-		recordsPreseter.search(searchText.getText());
+		presenter.search(searchText.getText());
 	}
 
 	private void onDeleteClick(int rowIndex)
 	{
-		recordsPreseter.delete(rowIndex);
+		presenter.delete(rowIndex);
 		records.removeRow(rowIndex);
 	}
 	
 	private void onOpenClick(int rowIndex)
 	{
-		recordsPreseter.open(rowIndex);
+		presenter.open(rowIndex);
 	}
 	
 	private void onEditClick(int rowIndex)
 	{
-		
+		presenter.edit(rowIndex);
 	}
 	
 	private void onAddClick()
 	{
-		
+		presenter.add();
 	}
 	
 	@Override
-	public void setPresenter(final RecordsWidget.RecordsPresenter recordsPreseter)
+	public void setPresenter(final RecordsWidget.RecordsPresenter presenter)
 	{
-		this.recordsPreseter = recordsPreseter;
+		this.presenter = presenter;
 	}
 
 	@Override

@@ -7,4 +7,5 @@ public class Messages
 			+ "connection and try again.";
 
 	public static final String NONEXISTENT_RECORD = "You are trying to open nonexistent phone record";
+	public static final String ALREADY_EXISTED_RECORD = "You are trying to add phone record that already exists";
 }

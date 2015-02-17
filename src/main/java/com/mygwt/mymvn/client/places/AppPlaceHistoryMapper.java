@@ -5,7 +5,7 @@ import com.google.gwt.place.shared.WithTokenizers;
 import com.mygwt.mymvn.client.places.RecordCardPlace;
 import com.mygwt.mymvn.client.places.RecordsPlace;
 
-@WithTokenizers({RecordsPlace.Tokenizer.class, RecordCardPlace.Tokenizer.class})
+@WithTokenizers({RecordsPlace.Tokenizer.class, RecordCardPlace.Tokenizer.class, RecordEditPlace.Tokenizer.class, RecordAddPlace.Tokenizer.class})
 public interface AppPlaceHistoryMapper extends PlaceHistoryMapper
 {
 }

@@ -3,15 +3,17 @@ package com.mygwt.mymvn.client;
 import java.util.ArrayList;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
+import net.customware.gwt.presenter.client.EventBus;
 
 import com.google.gwt.activity.shared.AbstractActivity;
-import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.mygwt.mymvn.client.events.DeleteEvent;
 import com.mygwt.mymvn.client.events.DeleteEventHandler;
+import com.mygwt.mymvn.client.places.RecordAddPlace;
+import com.mygwt.mymvn.client.places.RecordCardPlace;
+import com.mygwt.mymvn.client.places.RecordEditPlace;
 import com.mygwt.mymvn.client.places.RecordsPlace;
 import com.mygwt.mymvn.client.rpc.DeleteAction;
 import com.mygwt.mymvn.client.rpc.DeleteResult;
@@ -37,8 +39,9 @@ public class RecordsActivity extends AbstractActivity implements
 		searchedText = place.getNamesPart();
 		records = new ArrayList<PhoneRecord>();
 		
-		EventBus eventBus = clientFactory.getEventBus();
-		eventBus.addHandler(DeleteEvent.getType(), this);
+		//EventBus eventBus = clientFactory.getEventBus();
+		GlobalEventBus.eventBus.addHandler(DeleteEvent.getType(), this);
+		Window.alert(Long.toString(GlobalEventBus.eventBus.getHandlerCount(DeleteEvent.getType())));
 	}
 
 	public void updateTableContent()
@@ -73,18 +76,16 @@ public class RecordsActivity extends AbstractActivity implements
 	}
 
 	@Override
-	public void start(AcceptsOneWidget panel, EventBus eventBus)
+	public void start(AcceptsOneWidget panel, com.google.gwt.event.shared.EventBus eventBus)
 	{
+		Window.setTitle("PhoneBook");
+		
 		display.setSearchText(searchedText);
 		display.setPresenter(this);
 		updateTableContent();
 		
 		panel.setWidget(display.asWidget());
 	}
-	
-	private void goTo(Place place) {
-        clientFactory.getPlaceController().goTo(place);
-    }
 
 	@Override
 	public void delete(final int rowIndex)
@@ -106,23 +107,48 @@ public class RecordsActivity extends AbstractActivity implements
 	}
 	
 	@Override
+	public void onDelete(DeleteEvent event)
+	{
+		long recordId = event.getRecordId();
+		int index = 0;
+		Window.alert("OnDelete");
+		
+		for (PhoneRecord record : records)
+		{
+			if (record.getId() == recordId)
+			{
+				records.remove(index);
+				display.removeRow(index);
+				break;
+			}
+			++index;
+		}
+	}
+	
+	@Override
 	public void open(final int rowIndex)
 	{
-		PhoneRecord edited = records.get(rowIndex);
-		Window.open("../MyGwt.html#edit:" + edited.getName() + ":" + edited.getPhone(), "Edit", "resizable = false");
+		Window.alert(Long.toString(GlobalEventBus.eventBus.getHandlerCount(DeleteEvent.getType())));
+		PhoneRecord opened = records.get(rowIndex);
+		Utils.openFixWindow(RecordCardPlace.tokenPrefix, Long.toString(opened.getId()), "Card");
 	}
 
 	@Override
 	public void search(String text)
 	{
-		goTo(new RecordsPlace(text));
+		clientFactory.getPlaceController().goTo(new RecordsPlace(text));
 	}
 
 	@Override
-	public void onDelete(DeleteEvent event)
+	public void edit(int rowIndex)
 	{
-		int index = records.indexOf(event.getRecord());
-		records.remove(index);
-		display.removeRow(index);
+		PhoneRecord edited = records.get(rowIndex);
+		Utils.openFixWindow(RecordEditPlace.tokenPrefix, Long.toString(edited.getId()), "Edit");
+	}
+
+	@Override
+	public void add()
+	{
+		Utils.openFixWindow(RecordAddPlace.tokenPrefix, "", "Add");
 	}
 }

@@ -3,44 +3,41 @@ package com.mygwt.mymvn.client;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.google.gwt.activity.shared.AbstractActivity;
-
-import net.customware.gwt.presenter.client.EventBus;
-
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
-import com.mygwt.mymvn.client.events.DeleteEvent;
 import com.mygwt.mymvn.client.places.RecordCardPlace;
 import com.mygwt.mymvn.client.places.RecordEditPlace;
-import com.mygwt.mymvn.client.rpc.DeleteAction;
-import com.mygwt.mymvn.client.rpc.DeleteResult;
+import com.mygwt.mymvn.client.rpc.EditAction;
+import com.mygwt.mymvn.client.rpc.EditResult;
 import com.mygwt.mymvn.client.rpc.GetByIdAction;
 import com.mygwt.mymvn.client.rpc.GetByIdResult;
-import com.mygwt.mymvn.client.widgets.RecordCardWidget;
+import com.mygwt.mymvn.client.widgets.RecordEditWidget;
 import com.mygwt.mymvn.shared.PhoneRecord;
 
-public class RecordCardActivity extends AbstractActivity implements
-		RecordCardWidget.RecordCardPresenter
+public class RecordEditActivity extends AbstractActivity implements
+		RecordEditWidget.RecordEditPresenter
 {
 	private final DispatchAsync dispatcher;
-	private final RecordCardWidget display;
-	private final ClientFactory clientFactory;
+	private final RecordEditWidget display;
+	private ClientFactory clientFactory;
 	private final long recordId;
 
-	public RecordCardActivity(RecordCardPlace place, ClientFactory clientFactory)
+	public RecordEditActivity(RecordEditPlace place, ClientFactory clientFactory)
 	{
 		this.clientFactory = clientFactory;
 		dispatcher = clientFactory.getDispatcher();
-		display = clientFactory.getRecordCardWidget();
+		display = clientFactory.getRecordEditWidget();
 		recordId = place.getRecordId();
 	}
 
 	@Override
-	public void start(final AcceptsOneWidget panel, com.google.gwt.event.shared.EventBus eventBus)
+	public void start(final AcceptsOneWidget panel, EventBus eventBus)
 	{
-		Window.alert(Long.toString(clientFactory.getEventBus().getHandlerCount(DeleteEvent.getType())));
-		final RecordCardWidget.RecordCardPresenter presenter = this;
-		Window.setTitle("Card");
+		Window.setTitle("Edit");
+		
+		final RecordEditWidget.RecordEditPresenter presenter = this;
 		
 		dispatcher.execute(
 				new GetByIdAction(recordId),
@@ -57,7 +54,6 @@ public class RecordCardActivity extends AbstractActivity implements
 						if (record == null)
 						{
 							Window.alert(Messages.NONEXISTENT_RECORD);
-							Utils.closeWindow();
 							return;
 						}
 						
@@ -71,32 +67,27 @@ public class RecordCardActivity extends AbstractActivity implements
 	}
 
 	@Override
-	public void delete()
+	public void save(String name, String phone)
 	{
 		dispatcher.execute(
-				new DeleteAction(recordId),
-				new AsyncCallback<DeleteResult>()
+				new EditAction(recordId, new PhoneRecord(name, phone)),
+				new AsyncCallback<EditResult>()
 				{
 					public void onFailure(final Throwable cause)
 					{
 						Window.alert(Messages.SERVER_ERROR);
 					}
 
-					public void onSuccess(final DeleteResult result)
+					public void onSuccess(final EditResult result)
 					{
-						DeleteEvent event = new DeleteEvent(recordId);
-						GlobalEventBus.eventBus.fireEvent(event);
-						int cnt = GlobalEventBus.eventBus.getHandlerCount(DeleteEvent.getType());
-						Window.alert(cnt + " ");
-						Utils.closeWindow();
+						if (!result.isUpdated())
+						{
+							Window.alert(Messages.ALREADY_EXISTED_RECORD);
+							return;
+						}
+						
+						clientFactory.getPlaceController().goTo(new RecordCardPlace(Long.toString(recordId)));
 					}
 				});
-	}
-
-	@Override
-	public void edit()
-	{
-		//Utils.openFixWindow(RecordEditPlace.tokenPrefix, Long.toString(recordId), "Edit");
-		clientFactory.getPlaceController().goTo(new RecordEditPlace(Long.toString(recordId)));
 	}
 }

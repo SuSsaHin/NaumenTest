@@ -1,2 +1,2 @@
 serviceClass: net.customware.gwt.dispatch.client.standard.StandardDispatchService
-path: CFA03B201BD4E9D66413258449EA495A.gwt.rpc
+path: 961C17CA31069AFE4762CA888C8E6905.gwt.rpc

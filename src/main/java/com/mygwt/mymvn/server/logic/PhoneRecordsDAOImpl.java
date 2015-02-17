@@ -10,7 +10,7 @@ import com.mygwt.mymvn.shared.PhoneRecord;
 public class PhoneRecordsDAOImpl implements PhoneRecordsDAO
 {
 	@Override
-	public void add(PhoneRecord added) throws HibernateException
+	public long add(PhoneRecord added) throws HibernateException
 	{
 		Session session = null;
 		try
@@ -27,13 +27,15 @@ public class PhoneRecordsDAOImpl implements PhoneRecordsDAO
 				session.close();
 			}
 		}
+		
+		return -1;
 	}
 
 	@Override
-	public void edit(PhoneRecord source, PhoneRecord dest) throws HibernateException
+	public boolean update(long updatedId, PhoneRecord dest) throws HibernateException
 	{
 		// TODO Auto-generated method stub
-
+		return false;
 	}
 
 	@Override

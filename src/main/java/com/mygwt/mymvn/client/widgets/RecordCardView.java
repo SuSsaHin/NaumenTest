@@ -14,7 +14,7 @@ public class RecordCardView extends Composite implements RecordCardWidget
 	private final Button editButton;
 	private final Button deleteButton;
 
-	private RecordCardWidget.RecordCardPresenter recordCardPresenter;
+	private RecordCardWidget.RecordCardPresenter presenter;
 
 	public RecordCardView()
 	{
@@ -52,18 +52,18 @@ public class RecordCardView extends Composite implements RecordCardWidget
 	
 	private void onEditClick()
 	{
-		
+		presenter.edit();
 	}
 	
 	private void onDeleteClick()
 	{
-		recordCardPresenter.delete();
+		presenter.delete();
 	}
 
 	@Override
-	public void setPresenter(RecordCardPresenter recordCardPresenter)
+	public void setPresenter(RecordCardPresenter presenter)
 	{
-		this.recordCardPresenter = recordCardPresenter;
+		this.presenter = presenter;
 	}
 
 	@Override

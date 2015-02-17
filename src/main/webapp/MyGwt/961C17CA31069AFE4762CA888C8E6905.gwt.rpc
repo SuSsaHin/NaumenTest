@@ -1,10 +1,18 @@
 com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException, true, true, true, true, com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException/3936916533, 3936916533
 com.google.gwt.user.client.rpc.RpcTokenException, true, true, false, false, com.google.gwt.user.client.rpc.RpcTokenException/2345075298, 2345075298
 com.google.gwt.user.client.rpc.XsrfToken, false, false, true, true, com.google.gwt.user.client.rpc.XsrfToken/4254043109, 4254043109
+com.mygwt.mymvn.client.rpc.AddAction, false, false, true, true, com.mygwt.mymvn.client.rpc.AddAction/2693726046, 2693726046
+[Lcom.mygwt.mymvn.client.rpc.AddAction;, false, false, true, true, [Lcom.mygwt.mymvn.client.rpc.AddAction;/2216877969, 2216877969
+com.mygwt.mymvn.client.rpc.AddResult, true, true, false, false, com.mygwt.mymvn.client.rpc.AddResult/923787358, 923787358
+[Lcom.mygwt.mymvn.client.rpc.AddResult;, true, true, false, false, [Lcom.mygwt.mymvn.client.rpc.AddResult;/2270128643, 2270128643
 com.mygwt.mymvn.client.rpc.DeleteAction, false, false, true, true, com.mygwt.mymvn.client.rpc.DeleteAction/925830840, 925830840
 [Lcom.mygwt.mymvn.client.rpc.DeleteAction;, false, false, true, true, [Lcom.mygwt.mymvn.client.rpc.DeleteAction;/4291875375, 4291875375
 com.mygwt.mymvn.client.rpc.DeleteResult, true, true, false, false, com.mygwt.mymvn.client.rpc.DeleteResult/359789172, 359789172
 [Lcom.mygwt.mymvn.client.rpc.DeleteResult;, true, true, false, false, [Lcom.mygwt.mymvn.client.rpc.DeleteResult;/1003565594, 1003565594
+com.mygwt.mymvn.client.rpc.EditAction, false, false, true, true, com.mygwt.mymvn.client.rpc.EditAction/1345921130, 1345921130
+[Lcom.mygwt.mymvn.client.rpc.EditAction;, false, false, true, true, [Lcom.mygwt.mymvn.client.rpc.EditAction;/175383696, 175383696
+com.mygwt.mymvn.client.rpc.EditResult, true, true, false, false, com.mygwt.mymvn.client.rpc.EditResult/810232755, 810232755
+[Lcom.mygwt.mymvn.client.rpc.EditResult;, true, true, false, false, [Lcom.mygwt.mymvn.client.rpc.EditResult;/1702689360, 1702689360
 com.mygwt.mymvn.client.rpc.GetByIdAction, false, false, true, true, com.mygwt.mymvn.client.rpc.GetByIdAction/1946000947, 1946000947
 [Lcom.mygwt.mymvn.client.rpc.GetByIdAction;, false, false, true, true, [Lcom.mygwt.mymvn.client.rpc.GetByIdAction;/3278801273, 3278801273
 com.mygwt.mymvn.client.rpc.GetByIdResult, true, true, false, false, com.mygwt.mymvn.client.rpc.GetByIdResult/286082404, 286082404
@@ -13,7 +21,7 @@ com.mygwt.mymvn.client.rpc.SearchAction, false, false, true, true, com.mygwt.mym
 [Lcom.mygwt.mymvn.client.rpc.SearchAction;, false, false, true, true, [Lcom.mygwt.mymvn.client.rpc.SearchAction;/3323549335, 3323549335
 com.mygwt.mymvn.client.rpc.SearchResult, true, true, false, false, com.mygwt.mymvn.client.rpc.SearchResult/4035384689, 4035384689
 [Lcom.mygwt.mymvn.client.rpc.SearchResult;, true, true, false, false, [Lcom.mygwt.mymvn.client.rpc.SearchResult;/1370993580, 1370993580
-com.mygwt.mymvn.shared.PhoneRecord, true, true, false, false, com.mygwt.mymvn.shared.PhoneRecord/2018478220, 2018478220
+com.mygwt.mymvn.shared.PhoneRecord, true, true, true, true, com.mygwt.mymvn.shared.PhoneRecord/2018478220, 2018478220
 java.lang.Exception, true, false, true, false, java.lang.Exception/1920171873, 1920171873
 java.lang.RuntimeException, true, false, true, false, java.lang.RuntimeException/515124647, 515124647
 java.lang.String, true, true, true, true, java.lang.String/2004016611, 2004016611

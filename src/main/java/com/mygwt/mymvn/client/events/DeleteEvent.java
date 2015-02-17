@@ -1,22 +1,21 @@
 package com.mygwt.mymvn.client.events;
 
 import com.google.gwt.event.shared.GwtEvent;
-import com.mygwt.mymvn.shared.PhoneRecord;
 
 public class DeleteEvent extends GwtEvent<DeleteEventHandler>
 {
 	private static Type<DeleteEventHandler> TYPE = new Type<DeleteEventHandler>();
-	private PhoneRecord record;
+	private long id;
 	
-	public DeleteEvent(PhoneRecord record)
+	public DeleteEvent(long id)
 	{
 		super();
-		this.record = record;
+		this.id = id;
 	}
 	
-	public PhoneRecord getRecord()
+	public long getRecordId()
 	{
-		return record;
+		return id;
 	}
 	
 	public static Type<DeleteEventHandler> getType() {
