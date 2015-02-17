@@ -76,16 +76,19 @@ public class RecordsView extends Composite implements RecordsWidget
 		
 	}
 	
+	@Override
 	public void setPresenter(final RecordsWidget.RecordsPresenter recordsPreseter)
 	{
 		this.recordsPreseter = recordsPreseter;
 	}
 
+	@Override
 	public void setSearchText(String searchText)
 	{
 		this.searchText.setText(searchText);
 	}
 
+	@Override
 	public void setTableContent(String[][] tableContent)
 	{
 		records.clear(true);
@@ -136,6 +139,7 @@ public class RecordsView extends Composite implements RecordsWidget
 		}
 	}
 
+	@Override
 	public void removeRow(int rowIndex)
 	{
 		records.removeRow(rowIndex);

@@ -17,6 +17,7 @@ public class AppActivityMapper implements ActivityMapper
 		this.clientFactory = clientFactory;
 	}
 
+	@Override
 	public Activity getActivity(Place place)
 	{
 		if (place instanceof RecordsPlace)

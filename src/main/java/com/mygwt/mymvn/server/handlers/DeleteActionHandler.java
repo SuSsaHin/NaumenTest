@@ -11,7 +11,7 @@ import com.mygwt.mymvn.server.logic.PhoneRecordsDAOFactory;
 public class DeleteActionHandler implements
 		ActionHandler<DeleteAction, DeleteResult>
 {
-
+	@Override
 	public DeleteResult execute(DeleteAction action, ExecutionContext context)
 			throws ActionException
 	{
@@ -19,11 +19,13 @@ public class DeleteActionHandler implements
 		return new DeleteResult();
 	}
 
+	@Override
 	public Class<DeleteAction> getActionType()
 	{
 		return DeleteAction.class;
 	}
 
+	@Override
 	public void rollback(DeleteAction action, DeleteResult result,
 			ExecutionContext context) throws ActionException
 	{

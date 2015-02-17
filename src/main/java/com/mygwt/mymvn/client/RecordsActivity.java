@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.google.gwt.activity.shared.AbstractActivity;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
-import com.google.web.bindery.event.shared.EventBus;
 import com.mygwt.mymvn.client.events.DeleteEvent;
 import com.mygwt.mymvn.client.events.DeleteEventHandler;
 import com.mygwt.mymvn.client.places.RecordsPlace;
@@ -72,8 +72,8 @@ public class RecordsActivity extends AbstractActivity implements
 		display.setTableContent(tableContent);
 	}
 
-	public void start(AcceptsOneWidget panel,
-			com.google.gwt.event.shared.EventBus eventBus)
+	@Override
+	public void start(AcceptsOneWidget panel, EventBus eventBus)
 	{
 		display.setSearchText(searchedText);
 		display.setPresenter(this);
@@ -86,10 +86,11 @@ public class RecordsActivity extends AbstractActivity implements
         clientFactory.getPlaceController().goTo(place);
     }
 
+	@Override
 	public void delete(final int rowIndex)
 	{
 		dispatcher.execute(
-				new DeleteAction(records.get(rowIndex)),
+				new DeleteAction(records.get(rowIndex).getId()),
 				new AsyncCallback<DeleteResult>()
 				{
 					public void onFailure(final Throwable cause)
@@ -104,17 +105,20 @@ public class RecordsActivity extends AbstractActivity implements
 				});
 	}
 	
+	@Override
 	public void open(final int rowIndex)
 	{
 		PhoneRecord edited = records.get(rowIndex);
 		Window.open("../MyGwt.html#edit:" + edited.getName() + ":" + edited.getPhone(), "Edit", "resizable = false");
 	}
 
+	@Override
 	public void search(String text)
 	{
 		goTo(new RecordsPlace(text));
 	}
 
+	@Override
 	public void onDelete(DeleteEvent event)
 	{
 		int index = records.indexOf(event.getRecord());

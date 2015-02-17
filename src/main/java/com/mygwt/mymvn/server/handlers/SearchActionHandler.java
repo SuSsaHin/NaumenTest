@@ -15,6 +15,7 @@ public class SearchActionHandler implements
 		ActionHandler<SearchAction, SearchResult>
 {
 
+	@Override
 	public SearchResult execute(SearchAction action, ExecutionContext context)
 			throws ActionException
 	{
@@ -23,11 +24,13 @@ public class SearchActionHandler implements
 		return new SearchResult(records);
 	}
 
+	@Override
 	public Class<SearchAction> getActionType()
 	{
 		return SearchAction.class;
 	}
 
+	@Override
 	public void rollback(SearchAction action, SearchResult result,
 			ExecutionContext context) throws ActionException
 	{

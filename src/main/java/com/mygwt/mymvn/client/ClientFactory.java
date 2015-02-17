@@ -2,8 +2,8 @@ package com.mygwt.mymvn.client;
 
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.PlaceController;
-import com.google.web.bindery.event.shared.EventBus;
 import com.mygwt.mymvn.client.widgets.RecordCardWidget;
 import com.mygwt.mymvn.client.widgets.RecordsWidget;
 

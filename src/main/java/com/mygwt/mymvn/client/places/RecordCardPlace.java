@@ -27,11 +27,13 @@ public class RecordCardPlace extends Place
 	@Prefix(value = tokenPrefix)
 	public static class Tokenizer implements PlaceTokenizer<RecordCardPlace>
 	{
+		@Override
 		public String getToken(RecordCardPlace place)
 		{
 			return place.getRecordId().toString();
 		}
 
+		@Override
 		public RecordCardPlace getPlace(String token)
 		{
 			return new RecordCardPlace(token);

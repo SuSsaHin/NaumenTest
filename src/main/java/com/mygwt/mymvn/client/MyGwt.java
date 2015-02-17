@@ -25,6 +25,7 @@ public class MyGwt implements EntryPoint
 	/**
 	 * This is the entry point method.
 	 */
+	@Override
 	public void onModuleLoad()
 	{
 		ClientFactory clientFactory = GWT.create(ClientFactory.class);

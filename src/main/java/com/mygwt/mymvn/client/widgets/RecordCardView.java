@@ -60,16 +60,19 @@ public class RecordCardView extends Composite implements RecordCardWidget
 		recordCardPresenter.delete();
 	}
 
+	@Override
 	public void setPresenter(RecordCardPresenter recordCardPresenter)
 	{
 		this.recordCardPresenter = recordCardPresenter;
 	}
 
+	@Override
 	public void setName(String name)
 	{
 		this.name.setText(name);
 	}
 
+	@Override
 	public void setPhone(String phone)
 	{
 		this.phone.setText(phone);

@@ -11,6 +11,7 @@ import com.mygwt.mymvn.shared.PhoneRecord;
 
 public class GetByIdActionHandler implements ActionHandler<GetByIdAction, GetByIdResult>
 {
+	@Override
 	public GetByIdResult execute(GetByIdAction action, ExecutionContext context)
 			throws ActionException
 	{
@@ -18,11 +19,13 @@ public class GetByIdActionHandler implements ActionHandler<GetByIdAction, GetByI
 		return new GetByIdResult(geted);
 	}
 
+	@Override
 	public Class<GetByIdAction> getActionType()
 	{
 		return GetByIdAction.class;
 	}
 
+	@Override
 	public void rollback(GetByIdAction action, GetByIdResult result,
 			ExecutionContext context) throws ActionException
 	{
