@@ -4,11 +4,13 @@ import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.mygwt.mymvn.client.places.RecordCardPlace;
 import com.mygwt.mymvn.client.places.RecordEditPlace;
+import com.mygwt.mymvn.client.places.RecordsPlace;
 import com.mygwt.mymvn.client.rpc.EditAction;
 import com.mygwt.mymvn.client.rpc.EditResult;
 import com.mygwt.mymvn.client.rpc.GetByIdAction;
@@ -21,14 +23,14 @@ public class RecordEditActivity extends AbstractActivity implements
 {
 	private final DispatchAsync dispatcher;
 	private final RecordEditWidget display;
-	private ClientFactory clientFactory;
+	private final PlaceController placeController;
 	private final long recordId;
 
 	public RecordEditActivity(RecordEditPlace place, ClientFactory clientFactory)
 	{
-		this.clientFactory = clientFactory;
 		dispatcher = clientFactory.getDispatcher();
 		display = clientFactory.getRecordEditWidget();
+		placeController = clientFactory.getPlaceController();
 		recordId = place.getRecordId();
 	}
 
@@ -86,8 +88,14 @@ public class RecordEditActivity extends AbstractActivity implements
 							return;
 						}
 						
-						clientFactory.getPlaceController().goTo(new RecordCardPlace(Long.toString(recordId)));
+						placeController.goTo(new RecordCardPlace(Long.toString(recordId)));
 					}
 				});
+	}
+
+	@Override
+	public void back()
+	{
+		placeController.goTo(new RecordsPlace(""));
 	}
 }

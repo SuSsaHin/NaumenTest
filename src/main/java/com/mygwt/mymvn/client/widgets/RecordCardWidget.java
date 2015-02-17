@@ -12,5 +12,6 @@ public interface RecordCardWidget extends IsWidget
 	{
 		void delete();
 		void edit();
+		void back();
 	}
 }

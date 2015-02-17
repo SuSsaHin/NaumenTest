@@ -11,6 +11,7 @@ public interface RecordEditWidget extends IsWidget
 	interface RecordEditPresenter
 	{
 		void save(String name, String text);
+		void back();
 	}
 }
 

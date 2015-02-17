@@ -13,12 +13,13 @@ public class RecordCardView extends Composite implements RecordCardWidget
 	private final Label phone;
 	private final Button editButton;
 	private final Button deleteButton;
+	private final Button backButton;
 
 	private RecordCardWidget.RecordCardPresenter presenter;
 
 	public RecordCardView()
 	{
-		Grid grid = new Grid(3, 2); 
+		Grid grid = new Grid(4, 2); 
 		initWidget(grid);
 
 		name = new Label();
@@ -41,6 +42,15 @@ public class RecordCardView extends Composite implements RecordCardWidget
 				onDeleteClick();
 			}
 		});
+		
+		backButton = new Button("back");
+		backButton.addClickHandler(new ClickHandler()
+		{
+			public void onClick(ClickEvent event)
+			{
+				onBackClick();
+			}
+		});
 
 		grid.setWidget(0, 0, new Label("Name"));
 		grid.setWidget(0, 1, new Label("Phone"));
@@ -48,6 +58,12 @@ public class RecordCardView extends Composite implements RecordCardWidget
 		grid.setWidget(1, 1, phone);
 		grid.setWidget(2, 0, editButton);
 		grid.setWidget(2, 1, deleteButton);
+		grid.setWidget(3, 0, backButton);
+	}
+	
+	private void onBackClick()
+	{
+		presenter.back();
 	}
 	
 	private void onEditClick()

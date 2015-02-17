@@ -3,15 +3,13 @@ package com.mygwt.mymvn.client;
 import net.customware.gwt.dispatch.client.DispatchAsync;
 
 import com.google.gwt.activity.shared.AbstractActivity;
-
-import net.customware.gwt.presenter.client.EventBus;
-
+import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
-import com.mygwt.mymvn.client.events.DeleteEvent;
 import com.mygwt.mymvn.client.places.RecordCardPlace;
 import com.mygwt.mymvn.client.places.RecordEditPlace;
+import com.mygwt.mymvn.client.places.RecordsPlace;
 import com.mygwt.mymvn.client.rpc.DeleteAction;
 import com.mygwt.mymvn.client.rpc.DeleteResult;
 import com.mygwt.mymvn.client.rpc.GetByIdAction;
@@ -24,12 +22,13 @@ public class RecordCardActivity extends AbstractActivity implements
 {
 	private final DispatchAsync dispatcher;
 	private final RecordCardWidget display;
-	private final ClientFactory clientFactory;
+	private final PlaceController placeController;
+	
 	private final long recordId;
 
 	public RecordCardActivity(RecordCardPlace place, ClientFactory clientFactory)
 	{
-		this.clientFactory = clientFactory;
+		placeController = clientFactory.getPlaceController();
 		dispatcher = clientFactory.getDispatcher();
 		display = clientFactory.getRecordCardWidget();
 		recordId = place.getRecordId();
@@ -38,7 +37,6 @@ public class RecordCardActivity extends AbstractActivity implements
 	@Override
 	public void start(final AcceptsOneWidget panel, com.google.gwt.event.shared.EventBus eventBus)
 	{
-		Window.alert(Long.toString(clientFactory.getEventBus().getHandlerCount(DeleteEvent.getType())));
 		final RecordCardWidget.RecordCardPresenter presenter = this;
 		Window.setTitle("Card");
 		
@@ -57,7 +55,6 @@ public class RecordCardActivity extends AbstractActivity implements
 						if (record == null)
 						{
 							Window.alert(Messages.NONEXISTENT_RECORD);
-							Utils.closeWindow();
 							return;
 						}
 						
@@ -84,11 +81,7 @@ public class RecordCardActivity extends AbstractActivity implements
 
 					public void onSuccess(final DeleteResult result)
 					{
-						DeleteEvent event = new DeleteEvent(recordId);
-						GlobalEventBus.eventBus.fireEvent(event);
-						int cnt = GlobalEventBus.eventBus.getHandlerCount(DeleteEvent.getType());
-						Window.alert(cnt + " ");
-						Utils.closeWindow();
+						back();
 					}
 				});
 	}
@@ -96,7 +89,12 @@ public class RecordCardActivity extends AbstractActivity implements
 	@Override
 	public void edit()
 	{
-		//Utils.openFixWindow(RecordEditPlace.tokenPrefix, Long.toString(recordId), "Edit");
-		clientFactory.getPlaceController().goTo(new RecordEditPlace(Long.toString(recordId)));
+		placeController.goTo(new RecordEditPlace(Long.toString(recordId)));
+	}
+
+	@Override
+	public void back()
+	{
+		placeController.goTo(new RecordsPlace(""));
 	}
 }

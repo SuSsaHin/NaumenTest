@@ -13,6 +13,7 @@ public class RecordEditView extends Composite implements RecordEditWidget
 	private final TextBox name;
 	private final TextBox phone;
 	private final Button saveButton;
+	private final Button backButton;
 
 	private RecordEditPresenter presenter;
 
@@ -32,12 +33,27 @@ public class RecordEditView extends Composite implements RecordEditWidget
 				onSaveClick();
 			}
 		});
+		
+		backButton = new Button("back");
+		backButton.addClickHandler(new ClickHandler()
+		{
+			public void onClick(ClickEvent event)
+			{
+				onBackClick();
+			}
+		});
 
 		grid.setWidget(0, 0, new Label("Name"));
 		grid.setWidget(0, 1, new Label("Phone"));
 		grid.setWidget(1, 0, name);
 		grid.setWidget(1, 1, phone);
 		grid.setWidget(2, 0, saveButton);
+		grid.setWidget(2, 1, backButton);
+	}
+	
+	private void onBackClick()
+	{
+		presenter.back();
 	}
 	
 	private void onSaveClick()
